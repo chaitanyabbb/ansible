@@ -20,17 +20,17 @@
       name: httpd
       state: stopped
   
-  - name: Rebooting host(s)
-    shell: sleep 2 && /sbin/shutdown -r now "Reboot required for updated kernel." && sleep 2
-    async: 60
-    poll: 5
+#  - name: Rebooting host(s)
+#    shell: sleep 2 && /sbin/shutdown -r now "Reboot required for updated kernel." && sleep 2
+#    async: 60
+#    poll: 5
 
-  - name: Wait for the system to reboot
-    wait_for_connection:
-      connect_timeout: 300
-      sleep: 5
-      delay: 5
-      timeout: 300
+#  - name: Wait for the system to reboot
+#    wait_for_connection:
+#      connect_timeout: 300
+#      sleep: 5
+#      delay: 5
+#      timeout: 300
 
   - name: Running Post Script
     shell: curl -sL http://kickstart.mylab.local/index.sh | bash
