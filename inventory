@@ -1,7 +1,8 @@
 localhost
 
 [kube_masters]
-kubeml[01:02].mylab.local
+192.168.56.201
+192.168.56.202
 
 [kube_workers]
 kubewl[01:02].mylab.local
