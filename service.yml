@@ -8,56 +8,24 @@
   - name: Pinging All Servers
     action: ping
 
-
   - name: Running Pre-Checks
     shell: curl -sL http://kickstart.mylab.local/index.sh | bash
     args:
       warn: false
-
 
   - name: Stop httpd Service
     service:
       name: httpd
       state: stopped
   
-#  - name: Rebooting host(s)
-#    shell: sleep 2 && /sbin/shutdown -r now "Reboot required for updated kernel." && sleep 2
-#    async: 60
-#    poll: 5
-
-#  - name: Wait for the system to reboot
-#    wait_for_connection:
-#      connect_timeout: 300
-#      sleep: 5
-#      delay: 5
-#      timeout: 300
-
-
-  - name: restart system to reboot to newest kernel
-    shell: "sleep 5 && reboot"
-    async: 1
-    poll: 0
-
   - name: Reboot host and wait for it to restart
     reboot:
       msg: "Reboot initiated by Ansible"
       connect_timeout: 5
-      reboot_timeout: 600
+      reboot_timeout: 300
       pre_reboot_delay: 0
       post_reboot_delay: 30
-      test_command: whoami
-
-#  - name: wait for 3 Minutes
-#    pause:
-#      minutes: 3
-
-#  - name: wait for the system to reboot
-#    wait_for_connection:
-#      connect_timeout: 20
-#      sleep: 5
-#      delay: 60
-#      timeout: 300      
-#      when: task_result is changed
+      test_command: uptime
 
   - name: Running Post Script
     shell: curl -sL http://kickstart.mylab.local/index.sh | bash
