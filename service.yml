@@ -38,15 +38,15 @@
     async: 1
     poll: 0
 
-#  - name: wait for 300 seconds
-#    pause:
-#      minutes: 10
+  - name: wait for 300 seconds
+    pause:
+      minutes: 3
 
   - name: wait for the system to reboot
     wait_for_connection:
-      connect_timeout: 300
-      sleep: 300
-      delay: 300
+      connect_timeout: 20
+      sleep: 5
+      delay: 60
       timeout: 300      
 
   - name: Running Post Script
