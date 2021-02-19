@@ -22,8 +22,8 @@
   
   - name: Rebooting host(s)
     shell: sleep 2 && /sbin/shutdown -r now "Reboot required for updated kernel." && sleep 2
-    async: 20
-    poll: 0
+    async: 60
+    poll: 5
 
   - name: Wait for the system to reboot
     wait_for_connection:
