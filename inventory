@@ -1,0 +1,7 @@
+localhost
+
+[kube_masters]
+kubeml[01:02].mylab.local
+
+[kube_workers]
+kubewl[01:02].mylab.local

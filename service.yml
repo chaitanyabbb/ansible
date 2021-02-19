@@ -1,0 +1,43 @@
+# services.yml
+
+---
+
+- hosts: kube_masters
+  remote_user: root
+  tasks:
+  - name: Pinging All Servers
+    action: ping
+
+
+  - name: Running Pre-Checks
+    shell: curl -sL http://kickstart.mylab.local/index.sh | bash
+    args:
+      warn: false
+
+
+  - name: Stop httpd Service
+    service:
+      name: httpd
+      state: stopped
+  
+  - name: Rebooting host(s)
+    shell: sleep 2 && /sbin/shutdown -r now "Reboot required for updated kernel." && sleep 2
+    async: 20
+    poll: 0
+
+  - name: Wait for the system to reboot
+    wait_for_connection:
+      connect_timeout: 20
+      sleep: 5
+      delay: 5
+      timeout: 60
+
+  - name: Running Post Script
+    shell: curl -sL http://kickstart.mylab.local/index.sh | bash
+    args:
+      warn: false
+
+  - name: Start httpd Service
+    service: 
+      name: httpd 
+      state: started
