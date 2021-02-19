@@ -35,6 +35,7 @@
 
   - name: restart system to reboot to newest kernel
     reboot:
+      reboot_timeout: 3600
 #    shell: "sleep 5 && reboot"
 #    async: 1
 #    poll: 0
