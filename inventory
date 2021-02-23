@@ -1,4 +1,4 @@
-localhost
+local
 
 [kube_masters]
 192.168.56.201
