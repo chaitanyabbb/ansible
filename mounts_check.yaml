@@ -1,0 +1,86 @@
+# checkdiskspaceall.yml
+---
+
+- hosts: kube_masters:local
+  become: yes
+  vars: 
+    - my_mounts:
+        - '/'
+        - '/boot'
+
+  tasks:
+#     - name: Collect only facts about hardware
+#       setup:
+#         gather_subset:
+#           - 'hardware'
+
+#     - name: Test for available disk space
+#       setup: filter=ansible_mounts
+
+#     - name: Check Template
+#       template:
+#         src: mounts_info.j2
+#         dest: mount_info.txt
+
+#-------------------- option - 1 ------------
+
+     - name: Check freespace
+       shell: df "{{ item }}" | awk '{print $5}' | sed 's/%//'  | tail -1
+       register: tmp_freespace
+       loop: "{{ my_mounts }}"
+
+     
+     - fail:
+         msg: "I am {{ item.item }} partition on {{ ansible_nodename }}"
+       when: item.stdout |float is gt 80
+       loop: "{{ tmp_freespace.results }}"
+
+
+#------------------- Option - 2 -------------------
+
+#     - name: "Ensure Disk Space should be under 83%"
+#       assert:
+#         that:
+#           - item.size_available > item.size_total|float * 0.17
+#         success_msg: "NORMAL -- {{ ansible_nodename }} : {{ item.mount }} -- Disk Usage Under Threshould Limit -- 83%"
+#         fail_msg: "FAILED -- {{ ansible_nodename }} : {{ item.mount }} -- Disk Usage Above Threshold Limit -- 83%"
+#       when: item.mount in my_mounts
+#       with_items:
+#         - "{{ ansible_mounts }}"
+
+
+
+#       register: result_out
+#       ignore_errors: True
+
+#------------------- Option - 3 -------------------
+
+#     - name: "Ensure Space on / should be under 83%"
+#       assert:
+#         that:
+#           - item.size_available > item.size_total|float * 0.17
+#         success_msg: "{{ ansible_nodename }} : {{ item.mount }} -- Disk Usage Under Threshould Limit -- 83%"
+#         fail_msg: "FAILED - {{ ansible_nodename }} : {{ item.mount }} -- Disk Usage Above Threshold Limit -- 83%"
+#       when: item.mount in my_mounts_root
+#       with_items:
+#         - "{{ ansible_mounts }}"
+#       register: result_root
+#       ignore_errors: True
+#
+#     - name: fail the play if the previous command did not succeed
+#       fail:
+#         msg: "Failed on {{ ansible_nodename }} -- {{ result_root.msg }}"
+#       when: "'failed' in result_root"
+
+
+
+
+#     - name: Replace Lines in Apache
+#       replace:
+#         dest: /etc/httpd/conf/httpd.conf
+#         regexp: '^Listen 80'
+#         replace: 'Listen 8080'
+#
+     - name: "Checking Apache Service"
+       service: name=httpd state=started
+...
