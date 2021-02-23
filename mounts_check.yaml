@@ -1,7 +1,7 @@
 # checkdiskspaceall.yml
 ---
 
-- hosts: kube_masters:localhost
+- hosts: kube_masters:local
   remote_user: root
   vars: 
     - my_mounts:
