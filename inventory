@@ -6,3 +6,7 @@ local
 
 [kube_workers]
 kubewl[01:02].mylab.local
+
+[ansible]
+192.168.56.199
+
