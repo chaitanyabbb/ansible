@@ -2,7 +2,7 @@
 ---
 
 - hosts: kube_masters:ansible
-  become: yes
+  remote_user: root
   vars: 
     - root_mount:
         - '/'
