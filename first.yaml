@@ -14,6 +14,7 @@
        shell: df "{{ item }}" | awk '{print $5}' | sed 's/%//'  | tail -1
        register: tmp_freespace
        loop: "{{ my_mounts }}"
+       
      - name: Install the latest version of Apache
        yum:
          name: httpd
@@ -21,4 +22,11 @@
     
      - name: "Checking Apache Service"
        service: name=httpd state=started
+
+       
+     - name: Remove the latest version of Apache
+       yum:
+         name: httpd
+         state: absent
+    
 ...
