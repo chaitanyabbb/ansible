@@ -1,12 +1,4 @@
 local
 
-[kube_masters]
-192.168.56.201
-192.168.56.202
-
-[kube_workers]
-kubewl[01:02].mylab.local
-
-[ansible]
-192.168.56.199
-
+[chef_servers]
+192.168.150.104
