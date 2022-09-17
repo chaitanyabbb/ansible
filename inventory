@@ -1,4 +1,4 @@
-local
+localhost
 
-[chef_servers]
-192.168.150.104
+[servers]
+jenkinsl01.perf1.mylab.local

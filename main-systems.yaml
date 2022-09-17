@@ -1,0 +1,16 @@
+- name: Playbook for Systems Hardening
+  hosts: '{{ hosts_list }}'
+  become: yes
+  become_user: root
+  become_method: su
+
+  tasks:
+    - name: Disable selinux
+      ansible.posix.selinux:
+        state: disabled
+
+    - name: Stop and Disable firewalld service
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no
