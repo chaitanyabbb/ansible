@@ -6,7 +6,7 @@
 
   tasks:
     - name: Disable selinux
-      ansible.posix.selinux:
+      selinux:
         state: disabled
 
     - name: Stop and Disable firewalld service
