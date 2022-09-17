@@ -2,3 +2,4 @@ localhost
 
 [servers]
 jenkinsl01.perf.mylab.local
+192.168.150.105
