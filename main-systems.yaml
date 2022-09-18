@@ -14,3 +14,9 @@
         name: firewalld
         state: stopped
         enabled: no
+
+    - block:
+        - name: Install and Configure Jenkins via ANsible Role
+          include_role:
+            - name: jenkins_config
+              tasks_from: mains
