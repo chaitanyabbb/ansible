@@ -20,3 +20,4 @@
           include_role:
             - name: jenkins_config
               tasks_from: mains
+      when: (config_software == 'Jenkins')
